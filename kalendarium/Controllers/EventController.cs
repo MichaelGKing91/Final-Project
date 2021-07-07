@@ -16,12 +16,7 @@ namespace kalendarium.Controllers
       
 
 
-        [HttpPost("add/{}/{}/{}/{}")]
-        public bool AddEvent(int user_id, string name, bool privateEvent, DateTime dt_id)
-        {
-            DAL.AddEvent(user_id, name, privateEvent, dt_id);
-            return true;
-        }
+        
 
     }
 }
