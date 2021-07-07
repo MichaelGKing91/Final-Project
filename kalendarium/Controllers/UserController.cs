@@ -18,5 +18,18 @@ namespace kalendarium.Controllers
             DAL.AddUser(fName, lName, eAddress, dPart, pWord);
             return true;
         }
+
+        [HttpGet("isuser")]
+        public bool isUser(string fName, string lName, string eAddress, string dPart, string pWord)
+        {
+            User usr = new User()
+            {
+                firstName = fName, lastName = lName, emailAddress = eAddress, department = dPart, password = pWord
+            }
+            ;
+            return DAL.isUser(usr);
+        }
+
+
     }
 }

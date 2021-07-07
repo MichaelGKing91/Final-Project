@@ -27,7 +27,22 @@ namespace kalendarium.Models
             return newuser;
         }
 
-        
+        public static bool  isUser(User usr)
+        {
+            List<User> userlist = new List<User>();
+
+            userlist = db.GetAll<User>().ToList();
+
+            foreach (User currentuser in userlist)
+            {
+                if (currentuser.emailAddress == usr.emailAddress)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
 
     }
