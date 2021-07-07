@@ -1,0 +1,77 @@
+﻿drop database kalendarium;
+create database kalendarium;
+use kalendarium;
+
+
+
+CREATE TABLE `User` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`firstName` varchar(255),
+`lastName` varchar(255),
+`emailAddress` varchar(255) NOT NULL,
+`department` varchar(255) NOT NULL,
+`password` varchar(255) not null,
+PRIMARY KEY (`id`)
+);
+
+
+
+CREATE TABLE `Event` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`user_id` INT NOT NULL,
+`name` varchar(255) NOT NULL,
+`privateEvent` BOOLEAN NOT NULL,
+`dt_id` DATE NOT NULL,
+`location_id` INT,
+PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Location` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`city` varchar(255) NOT NULL,
+`state` varchar(255) NOT NULL,
+`street` varchar(255) NOT NULL,
+`zip` varchar(255) NOT NULL,
+PRIMARY KEY (`id`)
+);
+
+
+
+CREATE TABLE `Coworker` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`hide` BOOLEAN NOT NULL ,
+`user_id` INT NOT NULL,
+`coworker_id` int not null,
+PRIMARY KEY (`id`)
+);
+
+
+
+
+create table Calendar(
+dt date not null primary key,
+y smallint null,
+q tinyint null,
+m tinyint null,
+d tinyint null,
+dw tinyint null,
+monthName varchar(9) null,
+dayName varchar(9) null,
+w tinyint null,
+isWeekday boolean null,
+isHoliday boolean null,
+holidayDescr varchar(32) null,
+isPayday boolean null );
+
+
+
+create table ints ( i tinyint );
+
+
+
+insert into ints values (0),(1),(2),(3),(4),(5),(6),(7),(8),(9);
+
+
+
+insert into Calendar (dt) select date('2020-01-01') + interval a.i*10000 + b.i*1000 + c.i*100 + d.i*10 + e.i day from ints a join ints b join ints c join ints d join ints e where (a.i*10000 + b.i*1000 + c.i*100 + d.i*10 + e.i) <= 11322 order by 1;
+update Calendar set isWeekday = case when dayofweek(dt) in (1,7) then 0 else 1 end, isHoliday = 0, isPayday = 0, y = year(dt), q = quarter(dt), m = month(dt), d = dayofmonth(dt), dw = dayofweek(dt), monthname = monthname(dt), dayname = dayname(dt), w = week(dt), holidayDescr = '';
