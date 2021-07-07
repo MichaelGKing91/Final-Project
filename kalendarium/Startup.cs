@@ -1,3 +1,4 @@
+using kalendarium.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace kalendarium
 {
@@ -22,6 +25,11 @@ namespace kalendarium
         {
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
+
+            string connstring = Configuration.GetConnectionString("db");
+            IDbConnection db = new MySqlConnection(connstring);
+            DAL.db = db;
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
