@@ -9,14 +9,60 @@ using System.Threading.Tasks;
 
 namespace kalendarium.Controllers
 {
-    [Route("event")]
+    [Route("event")] 
     [ApiController]
     public class EventController : ControllerBase
     {
-      
+
+        [HttpPost("addevent")]
+        public bool MakeNewEvent(int thisUser, string userName, bool privateParty, DateTime dateID)
+        {
+            DAL.MakeNewEvent(thisUser, userName, privateParty, dateID);
+            return true;
+        }
+
+        [HttpGet("getevent/{eventId}")]
+        public Event ReadOneEventByID(int eventID)
+        {
+            return DAL.ReadOneEventByID(eventID);
+        }
+
+        [HttpGet("public")]
+        public List<Event> ReadAllPublicEvents()
+        {
+
+            return DAL.ReadAllPublicEvents();
+        }
+
+        [HttpGet("readcoworker")]
+        public  List<Event> ReadAllCoworkerPublicEvents(int coworkerID)
+        {
+            return DAL.ReadAllCoworkerPublicEvents(coworkerID).ToList();
+        }
 
 
+        [HttpGet("byuser")]
+        public  List<Event> ReadAllEventsByUser(int userID)
+        {
+            return DAL.ReadAllEventsByUser(userID).ToList();
+        }
+
+
+        [HttpPut("update/")]
+        public  bool UpdateEvent(Event toUpdate)
+        {
+            DAL.UpdateEvent(toUpdate);
+            return true;
         
+        }
+
+        [HttpDelete("remove/{eventId}")]
+        public bool RemoveUserFavorite(int id)
+        {
+            DAL.DeleteEvent(id);
+            return true;
+        }
+     
 
     }
 }
