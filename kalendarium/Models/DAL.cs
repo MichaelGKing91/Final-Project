@@ -64,18 +64,25 @@ namespace kalendarium.Models
             return db.Query<Coworker>("select * from coworker where user_id = @uTheUser", new { uTheUser = thisUser }).ToList();
         }
 
-        public static bool ToggleHide (Coworker toUpdate)
+        public static bool ToggleHide (int thisUser, int thisCoworker)
         {
-            if (toUpdate.hide)
+            List<Coworker> result = db.Query<Coworker>("select * from coworker where user_id = @uTheUser and coworker_id = @uTheCoworker",
+                new { uTheUser = thisUser, uTheCoworker = thisCoworker}).ToList();
+
+            foreach (Coworker cur in result)
             {
-                toUpdate.hide = false;
+                if (cur.hide)
+                {
+                    cur.hide = false;
+                }
+                else
+                {
+                    cur.hide = true;
+                }
+                db.Update(cur);
             }
-            else
-            {
-                toUpdate.hide = true;
-            }
-            db.Update(toUpdate);
             return true;
+
         }
 
         //-----------------------------------------------------------------------------
