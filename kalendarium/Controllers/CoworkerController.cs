@@ -26,12 +26,12 @@ namespace kalendarium.Controllers
             return DAL.GetCoworkerByUser(thisUser);
         }
 
-        // Add when event component html is being made
-        //[HttpGet("toggle")]
-        //public bool ToggleHide(int userid)
-        //{
 
-        //    DAL.ToggleHide(userid);
-        //}
+       [HttpGet("toggle")]
+        public bool ToggleHide(int userid, int coworkerid)
+        {
+            DAL.ToggleHide(userid, coworkerid);
+            return true;
+        }
     }
 }
