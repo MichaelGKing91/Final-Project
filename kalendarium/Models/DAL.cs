@@ -145,7 +145,7 @@ namespace kalendarium.Models
             return db.Get<Location>(id);
         }
 
-        public static bool AddLocation(Location aLocation)
+        public static bool EditLocation(Location aLocation)
         {
             db.Update<Location>(aLocation);
             return true;
