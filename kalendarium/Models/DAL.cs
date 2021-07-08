@@ -93,15 +93,16 @@ namespace kalendarium.Models
         }
         public static List<Event> ReadAllPublicEvents()
         {
-            return db.Query<Event>("select * from Events where privateEvent = false").ToList();
+            
+            return db.Query<Event>("select * from Event where privateEvent = false").ToList();
         }
         public static List<Event> ReadAllCoworkerPublicEvents(int coworkerID)
         {
-            return db.Query<Event>("select * from Events where privateEvent = false and user_id = @uCWID", new { uCWID = coworkerID }).ToList();
+            return db.Query<Event>("select * from Event where privateEvent = false and user_id = @uCWID", new { uCWID = coworkerID }).ToList();
         }
         public static List<Event> ReadAllEventsByUser (int userID)
         {
-            return db.Query<Event>("select * from Events where user_id = @user", new { user = userID }).ToList();
+            return db.Query<Event>("select * from Event where user_id = @user", new { user = userID }).ToList();
         }
         
         public static bool UpdateEvent (Event toUpdate)
