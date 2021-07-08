@@ -26,6 +26,12 @@ namespace kalendarium.Controllers
             return DAL.isUser(usr);
         }
 
+        [HttpGet("getuser/{eAddress}")]
+        public List<User> getUserByEmail(string eAddress)
+        {
+            return DAL.GetOneUser(eAddress);
+        }
+
 
     }
 }
