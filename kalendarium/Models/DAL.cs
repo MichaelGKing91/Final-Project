@@ -120,12 +120,44 @@ namespace kalendarium.Models
         //-----------------------------------------------------------------------------
         //--------------------CALENDAR CRUD-----------------------------------------------
         //-----------------------------------------------------------------------------
-        //make a join to read the calender with events
-
+        
         public static List<Calendar> GetMFCalendar(DateTime start, DateTime end)
         {
             return db.Query<Calendar>("select * from calendar where dt >= @uStart and dt <= @uEnd", new { uStart = start, uEnd = end }).ToList();
         }
+
+
+        //-----------------------------------------------------------------------------
+        //--------------------LOCATION CRUD-----------------------------------------------
+        //-----------------------------------------------------------------------------
+        
+
+
+        public static Location AddLocation(string ccity, string sstate, string sstreet, string zzip)
+        {
+            Location aLocation = new Location() { city = ccity, state = sstate, street = sstreet, zip = zzip};
+            db.Insert(aLocation);
+            return aLocation;
+        }
+
+        public static Location ReadOneLocByID(int id)
+        {
+            return db.Get<Location>(id);
+        }
+
+        public static bool AddLocation(Location aLocation)
+        {
+            db.Update<Location>(aLocation);
+            return true;
+        }
+
+        public static bool DeleteLocation(int LocID)
+        {
+            Location aLocation = new Location() { id = LocID };
+            db.Delete(aLocation);
+            return true;
+        }
+
     }
 }
 
