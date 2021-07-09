@@ -40,5 +40,12 @@ namespace kalendarium.Controllers
             DAL.DeleteLocation(id);
             return true;
         }
+
+        [HttpGet("withevent")]
+        public  List<Join> GetAllEventsWithLocation()
+        {
+            return DAL.GetAllEventsWithLocation();
+        }
+
     }
 }
