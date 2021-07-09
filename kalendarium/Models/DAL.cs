@@ -138,8 +138,11 @@ namespace kalendarium.Models
         //-----------------------------------------------------------------------------
         //--------------------LOCATION CRUD-----------------------------------------------
         //-----------------------------------------------------------------------------
-        
 
+        public static List<Join> GetAllEventsWithLocation()
+        {
+            return db.Query<Join>("SELECT event.*, location.city, location.state, location.street, location.zip FROM event Left JOIN location ON event.location_id=location.id").ToList();
+        }
 
         public static Location AddLocation(string ccity, string sstate, string sstreet, string zzip)
         {
@@ -169,3 +172,4 @@ namespace kalendarium.Models
     }
 }
 
+// SELECT* FROM event Left JOIN location ON event.location_id=location.id;
